@@ -1,34 +1,25 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <locale.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #define N 40
 
-// подсчитывает количество слов, длина которых не превышает 3 символов
+	// Составить программу, которая во введенной пользователем строке удаляет первую букву каждого слова
 
-void main1()
-{
-	setlocale(LC_ALL, "RUS");
-
-	char str[N];
-	int count = 0;
-	int temp_count = 0;
-	printf("Введите строку: ");
-	fgets(str, N, stdin);
-
-	for (int i = 0; i < N; i++)
+	void main()
 	{
-		if ((str[i] != ' ') && (str[i] != '\n'))
+		setlocale(LC_ALL, "RUS");
+
+		char stroka[N];
+		printf("Введите строку: ");
+		fgets(stroka, N, stdin);
+
+		for (int i = 0; i < strlen(stroka); i++)
 		{
-			temp_count++;
+			stroka[i] = stroka[i + 1];
+			if (stroka[i] == ' ')
+				for (int j = i + 1; j < strlen(stroka); j++)
+					stroka[j] = stroka[j + 1];
 		}
-		else
-		{
-			if (temp_count <= 3)
-				count++;
-			temp_count = 0;
+			printf("%s", stroka);
 		}
-	}
-	printf("%d", count);
-}
