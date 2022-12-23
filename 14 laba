@@ -49,7 +49,7 @@ void main()
 double* full_elements(double* ptr_array, int n)
 {
 	for (int i = 0; i < n; i++)
-		ptr_array[i] = MIN + rand() / (MAX-MIN);
+		ptr_array[i] = MIN + rand() % (MAX-MIN);
 	return ptr_array;
 }
 
