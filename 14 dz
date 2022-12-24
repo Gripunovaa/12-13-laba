@@ -1,0 +1,110 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#define MIN -100
+#define MAX 100
+double* full_elements(double* ptr_array, int n);
+double* put_elements(double* ptr_array, int n);
+double first_positive(double* ptr_array, int n);
+double zn_first_positive(double* ptr_array, int n);
+double first_negative(double* ptr_array, int n);
+double zn_first_negative(double* ptr_array, int n);
+
+
+
+void main()
+{
+	    setlocale(LC_ALL, "RUS");
+		int size, index;
+		double elem;
+		printf("\nВведите размер массива\n>");
+		scanf("%d", &size);
+		srand(time(NULL));
+		double* array = malloc(size * sizeof(double));
+		full_elements(array, size);
+		put_elements(array, size);
+		
+			index = first_positive(array, size);
+			if (index != -1)
+			{
+				elem = zn_first_positive(array, size);
+				printf("Первый положительный элемент А[%d]: %.2lf\n", index, elem);
+			}
+			else
+				printf("Нет положительных элементов\n");
+			
+		
+			index = first_negative(array, size);
+			if (index != -1)
+			{
+				elem = zn_first_negative(array, size);
+				printf("Первый отрицательный элемент А[%d]: %.2lf\n", index, elem);
+			}
+			else
+				printf("Нет отрицательных элементов\n");
+			
+}
+
+// поиск индекса первого положительного элемента
+double first_positive(double* ptr_array, int n)
+{
+	for (int i = 0; i <= n - 1; i++)
+	{
+		if (ptr_array[i] > 0)
+			return i;
+	}
+	return 1;
+}
+
+// поиск значения первого положительного элемента
+double zn_first_positive(double* ptr_array, int n)
+{
+	for (int i = 0; i <= n - 1; i++)
+	{
+		if (ptr_array[i] > 0)
+			return ptr_array[i];
+	}
+	return -1;
+}
+// поиск индекса первого отрицательного элемента
+double first_negative(double* ptr_array, int n)
+{
+	for (int i = 0; i <= n - 1; i++)
+	{
+		if (ptr_array[i] < 0)
+			return i;
+
+	}
+	return 1;
+}
+
+// поиск значения первого отрицательного элемента
+double zn_first_negative(double* ptr_array, int n)
+{
+	for (int i = 0; i <= n - 1; i++)
+	{
+		if (ptr_array[i] < 0)
+			return ptr_array[i];
+	}
+	return -1;
+}
+
+
+
+
+// заполнение массива случайными значениями
+double* full_elements(double* ptr_array, int n)
+{
+	for (int i = 0; i < n; i++)
+		ptr_array[i] = MIN + rand() % (MAX - MIN);
+	return ptr_array;
+}
+
+// печать элементов массива
+double* put_elements(double* ptr_array, int n)
+{
+	for (int i = 0; i < n; i++)
+		printf("A[%d]: %.2lf\n", i, ptr_array[i]);
+	return ptr_array;
+}
