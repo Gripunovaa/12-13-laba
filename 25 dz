@@ -1,0 +1,39 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
+
+// Сдвиг элементов массива вправо на n  позиций
+
+void main()
+{
+	setlocale(LC_ALL, "RUS");
+	srand((unsigned)time(NULL) / 2);
+
+	int count, max, n;
+	printf("Введите количество элементов и максимальное значение:\n>");
+	scanf("%d%d", &count, &max);
+	printf("Введите сдвиг\n>");
+	scanf("%d", &n);
+
+	// заполняем массив
+	int* array = malloc(count * sizeof(int));
+	for (int i = 0; i < count; i++)
+	{
+		array[i] = 1 + rand() % (max-1+1);
+		printf("A[%d]: %d\n", i, array[i]);
+	}
+
+
+	// сдвиг 
+	printf("\nНовый массив:\n");
+	for (int i = 0; i < count; i++)
+	{
+		int temp = array[i];
+		array[i] = array[i + n];
+		printf("A[%d]: %d\n",i, array[i]);
+	}
+
+}
