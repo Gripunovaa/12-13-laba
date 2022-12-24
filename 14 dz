@@ -11,7 +11,7 @@ double zn_first_positive(double* ptr_array, int n);
 double first_negative(double* ptr_array, int n);
 double zn_first_negative(double* ptr_array, int n);
 
-
+//поиск первого положительного и отрицательного элементов
 
 void main()
 {
@@ -20,7 +20,7 @@ void main()
 		double elem;
 		printf("\nВведите размер массива\n>");
 		scanf("%d", &size);
-		srand(time(NULL));
+	
 		double* array = malloc(size * sizeof(double));
 		full_elements(array, size);
 		put_elements(array, size);
@@ -96,6 +96,7 @@ double zn_first_negative(double* ptr_array, int n)
 // заполнение массива случайными значениями
 double* full_elements(double* ptr_array, int n)
 {
+	srand(time(NULL));
 	for (int i = 0; i < n; i++)
 		ptr_array[i] = MIN + rand() % (MAX - MIN);
 	return ptr_array;
