@@ -1,0 +1,105 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <math.h>
+#include <time.h>
+#define N 10
+#define pi 3,1415
+#define XMAX 1000
+#define XMIN -1000
+
+/*
+Реализовать функцию calculate (TFun prtf, double *x, int n), которая по
+заданной указателем prtf функции для значений массива х, размера n
+Определяет количество положительных значений функции.
+*/
+typedef double (*TFun) (double);
+
+double fun1(double x)
+{
+	double res;
+	res = 2 * sin(pi * x) * sin(3 * pi * x) - 0.5;
+	return res;
+}
+double fun2(double x)
+{
+	double res = 0;
+	if (x == 1)
+		res = NAN;
+	else if (x > 2)
+	{
+		res = pow(2, exp(x + 1 + sqrt(pow(x, 3))));
+	}
+	else if (x < -2)
+	{
+		res = 2 / 3. * sin(pow(x, 2)) + log(fabs(x));
+	}
+	else if (x >= -2 && x <= 2)
+	{
+		res = 1.5 * pow(x, 2) - tan(x);
+	}
+}
+
+double calculate(TFun func, double* x, int n)
+{
+	double res = 0;
+	double y;
+	for (int i = 0; i < n; i++)
+	{
+		y = func(x[i]);
+		if (isnan(y) || isinf(y))
+			printf("| %16.5lg | %16c |\n", x[i], '-');
+		else
+		{
+
+			printf("| %16.5lg | %16.5lg |\n", x[i], y);
+			if (y > 0)
+				res += 1;
+		}
+	}
+	return res;
+}
+
+void main()
+{
+	setlocale(LC_ALL, "RUS");
+	srand(time(NULL));
+	double x[N];
+	for (int i = 0; i < N; i++)
+		x[i] = XMIN + (double)1 * (XMAX - XMIN) * rand() / RAND_MAX;
+
+	int c;
+	double res;
+	printf("Выберите функцию:\n");
+	puts("*1. F1(x)=2*sin(pi*x)*sin(3*pi*x)-0,5                                                                                 *");
+	puts("*2. F2(x)=1,5*x^2-tg(x),                  если -2 <= x <= 2                                                           *");
+	puts("*    // 2^e^(x+1+x^3/2),                    если x>2                                                                  *");
+	puts("*    // 2/3*sin(x^2) + ln|x|,             если x<-2        ОДЗ:x = 1                                                  *");
+	scanf("%d", &c);
+
+	switch (c)
+	{
+	case 1:
+		printf("______________________________________\n");
+		printf("|        x         |       f(x)       |\n");
+		printf("|------------------|------------------|\n");
+		res = calculate(fun1, x, N);
+		printf("|------------------|------------------|\n");
+		printf("Количество положительных значений: %lg\n", res);
+		break;
+	case 2:
+		printf("______________________________________\n");
+		printf("|        x         |       f(x)       |\n");
+		printf("|------------------|------------------|\n");
+		res = calculate(fun2, x, N);
+		printf("|------------------|------------------|\n");
+		printf("Количество положительных значений: %lg\n", res);
+		break;
+	default:
+		puts("Нет такого варианта.\n");
+	}
+
+
+}
+
