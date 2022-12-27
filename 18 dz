@@ -8,7 +8,7 @@
 /* Создать структуру для хранения указанной в индивидуальном варианте записи, организовать в программе ввод 5-10 различных
 записей, из полученного массива структур найти и напечатать информацию согласно индивидуальному варианту:
 
-Вариант 3. Запись «Сотрудник» = { Фамилия, Имя, Отчество, Должность, Зарплата, Дата рождения}
+Вариант 3. Запись «Сотрудник» = { Фамилия, Имя, Отчество, Должность, Дата рождения}
 Вывести сведения о  самом молодом  сотруднике*/
 
 struct employee {
@@ -17,7 +17,7 @@ struct employee {
 	char patronymic[LEN];
 	char position[LEN];
 	int birthday;
-	float salary;
+
 };
 typedef struct employee Employee;
 void add_arr(Employee* array, int size);
@@ -40,7 +40,7 @@ void main()
 		}
 	}
 	printf("%s %s %s %s %d %g\n",
-		emp_array[c].surname, emp_array[c].name, emp_array[c].patronymic, emp_array[c].position, emp_array[c].birthday, emp_array[c].salary);
+		emp_array[c].surname, emp_array[c].name, emp_array[c].patronymic, emp_array[c].position, emp_array[c].birthday);
 }
 			
 
@@ -61,8 +61,6 @@ void add_arr(Employee* array, int size)
 		scanf(" %s", &array[i].position);
 		printf("Дата рождения (год): ");
 		scanf("%d", &array[i].birthday);
-		printf("Зарплата: ");
-		scanf("%f", &array[i].salary);
 		printf("\n");
 	}
 }
