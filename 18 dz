@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+
+#define LEN 70
+#define N 5
+
+/* Создать структуру для хранения указанной в индивидуальном варианте записи, организовать в программе ввод 5-10 различных
+записей, из полученного массива структур найти и напечатать информацию согласно индивидуальному варианту:
+
+Вариант 3. Запись «Сотрудник» = { Фамилия, Имя, Отчество, Должность, Зарплата, Дата рождения}
+Вывести сведения о  самом молодом  сотруднике*/
+
+struct employee {
+	char surname[LEN];
+	char name[LEN];
+	char patronymic[LEN];
+	char position[LEN];
+	int birthday;
+	float salary;
+};
+typedef struct employee Employee;
+void add_arr(Employee* array, int size);
+
+void main()
+{
+	setlocale(LC_ALL, "RUS");
+	Employee emp_array[N];
+	int c = 0, MIN = 2020;
+
+	printf("Введите 5 сотрудников:\n");
+	add_arr(emp_array, N);
+	printf("Искомый сотрудник:\n");
+	for (int i = 0; i < N; i++)
+	{
+		if (emp_array[i].birthday < MIN)
+		{
+			MIN = emp_array[i].birthday;
+			c = i;
+		}
+	}
+	printf("%s %s %s %s %d %g\n",
+		emp_array[c].surname, emp_array[c].name, emp_array[c].patronymic, emp_array[c].position, emp_array[c].birthday, emp_array[c].salary);
+}
+			
+
+
+
+
+void add_arr(Employee* array, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		printf("Фамилия: ");
+		scanf(" %s", &array[i].surname);
+		printf("Имя: ");
+		scanf(" %s", &array[i].name);
+		printf("Отчество: ");
+		scanf(" %s", &array[i].patronymic);
+		printf("Должность: ");
+		scanf(" %s", &array[i].position);
+		printf("Дата рождения (год): ");
+		scanf("%d", &array[i].birthday);
+		printf("Зарплата: ");
+		scanf("%f", &array[i].salary);
+		printf("\n");
+	}
+}
