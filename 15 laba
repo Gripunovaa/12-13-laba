@@ -1,0 +1,99 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
+
+int main() {
+	setlocale(LC_ALL, "RUS");
+	srand(time(NULL));
+	// Составьте программу, которая создает двумерный массив, каждый элемент которого
+	// отношению порядкового номера элемента в строке к номеру столбца;
+	int arr[100][100];
+	int rows, columns, stl, MAX=-100000000000;
+	printf("Задайте кол-во строк двумерного массива: ");
+	scanf("%d", &rows);
+	printf("Задайте кол-во столбцов двумерного массива: ");
+	scanf("%d", &columns);
+
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			if (j == i)
+				arr[i][j] = 0;
+			if (j == 0)
+				arr[i][j] = i;
+			else arr[i][j] = (float)i/j;
+			printf(" %2d ", arr[i][j]);
+		}
+		puts("\n");
+	}
+
+	printf("Левый верхний элемент таблицы равен %d", arr[0][0]);
+	printf("\nВведите столбец для поиска максимального элемента: ");
+	scanf("%d", &stl);
+	for (int i =0; i < columns; i++) {
+		if (MAX < arr[i][stl - 1]) {
+			MAX = arr[i][stl - 1];
+		}
+	}
+	printf("\nМаксимальное значение %d столбца массива равен %d\n", stl, MAX);
+	//#2 двумерный массив целых чисел от -10 до 10 (размерностью 7 на 7) и транспонирует его (заменяет строки на столбцы).
+	int mat[7][7];
+	int trmat[7][7];
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 7; j++) {
+			mat[i][j] = -10 + rand() % (10 - -10);
+			printf(" %2d ", mat[i][j]);
+		}
+		puts("\n");
+	}
+	puts("\n\n\n");
+	int count = 0;
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 7; j++) {
+			trmat[i][j] = mat[j][count];
+			printf(" %2d ", trmat[i][j]);
+		}
+		count++;
+		puts("\n");
+	}
+	//количество элементов второго столбца массива, меньших -5;
+	int cnt= 0;
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 7; j++) {
+			if (j == 2) {
+				if (trmat[i][j] < -5) 
+					cnt++;
+		
+			}
+		}
+	}
+	printf("Количество элементов второго столбца массива, меньших -5:%d\n",cnt);
+
+	//Найдите число пар одинаковых соседних элементов.олько элементы, расположенные в одной строке;
+	int counter = 0;
+	for (int i = 1; i < 7; i++) {
+		for (int j = 1; j < 7; j++) {
+			if (trmat[i][j] == trmat[i][j - 1]) {
+				counter++;
+			}
+		
+		}
+	}
+	printf("\n Количество пар одинаковых элементов %d \n", counter);
+	//Определите координаты максимального элемента.
+	int max = -1000000;
+	int X, Y;
+
+	for (int i = 0; i < 7; i++) {
+		for (int j = 0; j < 7; j++) {
+			if (max <= trmat[i][j]) {
+				max = trmat[i][j];
+				X = i;
+				Y = j;
+			}
+
+		}
+	}
+	printf("\nМаксимальный элемент - %d.\n Расположен в точке с координатами (%d;%d)\n", max, X, Y);
+}
