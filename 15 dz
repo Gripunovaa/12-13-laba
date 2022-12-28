@@ -1,0 +1,25 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
+//В двумерном массиве хранится информация о количестве студентов в той или иной группе каждого курса института с первого по пятый На каждом курсе имеется 8 групп.Составить программу для расчета общего числа студентов на любом курсе.
+int main() {
+	setlocale(LC_ALL, "RUS");
+	srand(time(NULL));
+	int students[5][8];
+	for (int i = 0; i < 5; i++) {
+		printf("\n%d курс", i + 1);
+		for (int j = 0; j < 8; j++) {
+			students[i][j] = 0 + rand() % (100 - 0);
+			printf("\n    %d группа - %2d обучающихся ", j + 1, students[i][j]);
+		}
+	}
+	int number, student=0;
+	printf("\nВведите номер курса: ");
+	scanf("%d", &number);
+	for (int i = 0; i < 8; i++) {
+		student += students[number - 1][i];
+	}
+	printf("\n\nОбщее число студентов на %d курсе составляет %d человек", number, student);
+	}
